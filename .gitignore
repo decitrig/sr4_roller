@@ -1,0 +1,8 @@
+.classpath
+.project
+.settings
+LICENSE-JGF
+bin
+forms*
+*~
+*.swp
