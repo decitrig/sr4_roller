@@ -6,3 +6,4 @@ bin
 forms*
 *~
 *.swp
+*.class

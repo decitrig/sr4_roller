@@ -1,0 +1,43 @@
+<project name="slideroller" basedir="." default="dist">
+	<property name="build.dir" value="build" />
+	<property name="classes" value="${build.dir}/classes" />
+	<property name="src.dir" value="src" />
+	<property name="dist.dir" value="dist" />
+	<property name="main-class" value="net.decitrig.sr4.RollerApp" />
+	<property name="libs.dir" value="libs" />
+
+	<tstamp>
+		<format property="time" pattern="yyyyMMdd" />
+	</tstamp>
+	
+	<property name = "file.name" value="${ant.project.name}-${time}.jar"/>
+
+	<target name="clean">
+		<delete dir="${build.dir}" />
+	</target>
+
+	<target name="compile">
+		<mkdir dir="${classes}" />
+		<javac srcdir="${src.dir}" destdir="${classes}" classpath="${libs.dir}" />
+	</target>
+
+	<target name="clean-build" depends="clean,compile" />
+
+	<target name="dist" depends="distclean,compile">
+		<mkdir dir="${dist.dir}" />
+		<jar destfile="${dist.dir}/${file.name}" basedir="${classes}">
+			<fileset dir="${libs.dir}">
+				<include name="**" />
+			</fileset>
+			<fileset dir="${src.dir}"/>
+			<manifest>
+				<attribute name="Main-Class" value="${main-class}" />
+				<attribute name="Class-Path" value="${libs.dir}" />
+			</manifest>
+		</jar>
+	</target>
+
+	<target name="distclean" depends="clean">
+		<delete file="${dist.dir}/${file.name}" />
+	</target>
+</project>
